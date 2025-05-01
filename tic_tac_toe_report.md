@@ -1,5 +1,5 @@
 
-# 🎮 Kursinis darbas – „Tic Tac Toe“ žaidimas su dirbtiniu intelektu
+# 🎮 Kursinis darbas – „Tic Tac Toe“ žaidimas 3x3
 
 ## 📌 Įžanga (Introduction)
 
