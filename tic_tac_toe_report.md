@@ -1,18 +1,18 @@
 
-# 🎮 Kursinis darbas – „Tic Tac Toe“ žaidimas 3x3
+# 🎮 Kursinis darbas – „Tic-Tac-Toe“ žaidimas
 
 ## 📌 Įžanga (Introduction)
 
 **Kas tai per programa?**  
 Ši programa yra klasikinis kryžiukų-nuliukų („Tic Tac Toe“),
-žaidimas sukurta naudojant `tkinter` grafinę vartotojo sąsają.
+žaidimas sukurtas naudojant `tkinter` grafinę vartotojo sąsają.
 Žaidėjas gali pasirinkti, ar žaisti prieš kitą žmogų, ar prieš dirbtinio intelekto (AI) žaidėją.
 
 **Kaip paleisti programą?**  
 1. Įsitikinkite, kad turite įdiegtą `Python 3`.
 2. Paleiskite failą:
    ```bash
-   python main.py
+   python Tic_Tac_Toe.py
    ```
 
 **Kaip naudotis programa?**  
@@ -67,7 +67,7 @@ def make_move(self, board, row, col):
 
 # AI žaidėjo ėjimas su logika laimėti ar blokuoti
 def make_move(self, board, row=None, col=None):
-    # AI strategija čia
+    # Toliau AI strategija...
 ```
 
 ---
@@ -135,13 +135,9 @@ def load_results(self):
 
 ### ✅ Unit Testai
 
-Testuojamos svarbiausios funkcijos su `unittest` moduliu:
+Testavimui naudotas `unittest` modulis. Testuojamos svarbiausios funkcijos, suskirstytos į šias testų klases:
 
-- Lentelės funkcijos (`make_move`, `check_winner`, `undo_move`)
-- `PlayerFactory` klasės kūrimo metodai
-- GUI failų įkėlimo logika (naudojant `mock`)
-- `Game` pradinė logika
-
+#### 🧪 `TestBoard` – tikrina lentos logiką:
 ```python
 def test_check_winner_row(self):
     self.board.make_move(0, 0, 'X')
@@ -149,6 +145,49 @@ def test_check_winner_row(self):
     self.board.make_move(0, 2, 'X')
     self.assertEqual(self.board.check_winner(), 'X')
 ```
+
+#### 🧪 `TestPlayerFactory` – tikrina ar teisingai kuriami žaidėjų objektai:
+```python
+def test_create_human_player(self):
+    player = PlayerFactory.create_player("human", "X")
+    self.assertIsInstance(player, HumanPlayer)
+```
+
+#### 🧪 `TestGameStart` – tikrina kuris žaidėjas pradeda žaidimą:
+```python
+def test_starting_player_is_x(self):
+    players = [HumanPlayer('X'), HardAIPlayer('O', 'X')]
+    game = Game(players, self.board, self.gui)
+    starting_index = 0 if players[0].symbol == 'X' else 1
+    self.assertEqual(starting_index, 0)
+```
+
+#### 🧪 `TestLoadResults` – tikrina rezultatų įkėlimą iš failo:
+```python
+@patch("builtins.open", new_callable=mock_open, read_data="")
+def test_load_results_empty_file(self, _mock_file):
+    result = self.gui.load_results()
+    self.assertEqual(result, "No previous results.")
+```
+
+### ▶️ Testų paleidimas:
+
+Testai paleisti komanda:
+
+```bash
+python -m unittest test_game.py
+```
+
+**Rezultatas terminale:**
+```
+..................
+----------------------------------------------------------------------
+Ran 18 tests in 0.226s
+
+OK
+```
+
+🟢 Visi testai sėkmingai praėjo, o tai rodo, kad pagrindinė žaidimo logika veikia stabiliai.
 
 ---
 
@@ -170,7 +209,7 @@ def test_check_winner_row(self):
 - Programa palaiko rezultatų saugojimą ir testavimą.
 - Plėtros kryptys:
   - Pridėti „Minimax“ AI algoritmą
-  - Padidinti lentos dydį (5x5 ar kintamą)
+  - Padidinti lentos dydį (4x4 ir t.t.)
   - Pridėti žaidimų istoriją su datomis
   - Pridėti daugiau žaidėjų arba kelių raundų režimą
 
