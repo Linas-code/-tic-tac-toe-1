@@ -9,8 +9,15 @@
 Žaidėjas gali pasirinkti, ar žaisti prieš kitą žmogų, ar prieš dirbtinio intelekto (AI) žaidėją.
 
 **Kaip paleisti programą?**  
-1. Įsitikinkite, kad turite įdiegtą `Python 3`.
-2. Paleiskite failą:
+1. Įsitikinkite, kad turite įdiegtus šiuos dalykus:
+   - ✅ [Python 3](https://www.python.org/) (naudojama kalba)
+   - ✅ [Visual Studio Code (VS Code)](https://code.visualstudio.com/) (teksto redaktorius su terminalu)
+   - ✅ Python plėtinys VS Code aplinkoje (Python Extension for VS Code)
+
+2. Atidarykite projektą VS Code aplinkoje:
+   - Atsidarykite aplanką, kuriame yra failas `Tic_Tac_Toe.py`
+
+3. Terminale paleiskite programą su komanda:
    ```bash
    python Tic_Tac_Toe.py
    ```
@@ -56,6 +63,12 @@ Klasės `HumanPlayer` ir `HardAIPlayer` paveldi `Player`:
 class HumanPlayer(Player):
     def make_move(self, board, row, col):
         return board.make_move(row, col, self.symbol)
+
+
+class HardAIPlayer(Player):
+    def __init__(self, symbol, opponent_symbol):
+        super().__init__(symbol)
+        self._opponent_symbol = opponent_symbol
 ```
 
 **4. Polimorfizmas (Polymorphism)**  
