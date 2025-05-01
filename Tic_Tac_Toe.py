@@ -89,7 +89,9 @@ class Board:
             lines.append([self._board[j][i] for j in range(self._size)])
 
         lines.append([self._board[i][i] for i in range(self._size)])
-        lines.append([self._board[i][self._size - 1 - i] for i in range(self._size)])
+        lines.append(
+            [self._board[i][self._size - 1 - i] for i in range(self._size)]
+        )
 
         for line in lines:
             if line.count(line[0]) == self._win_length and line[0] != " ":
@@ -100,7 +102,12 @@ class Board:
         return all(cell != " " for row in self._board for cell in row)
 
     def get_empty_cells(self):
-        return [(r, c) for r in range(self._size) for c in range(self._size) if self._board[r][c] == " "]
+        return [
+            (r, c)
+            for r in range(self._size)
+            for c in range(self._size)
+            if self._board[r][c] == " "
+        ]
 
     @property
     def board(self):
@@ -188,20 +195,46 @@ class GameGUI:
         frame = tk.Frame(self.window, bg="#E6E6FA")
         frame.pack(expand=True)
 
-        tk.Label(frame, text="Tic Tac Toe", font=("Arial", 24, "bold"), bg="#E6E6FA").pack(pady=(30, 10))
+        tk.Label(
+            frame,
+            text="Tic Tac Toe",
+            font=("Arial", 24, "bold"),
+            bg="#E6E6FA"
+        ).pack(pady=(30, 10))
 
-        results_label = tk.Label(frame, text=f"Previous results:\n{self.load_results()}", font=("Arial", 10), bg="#E6E6FA", justify="left")
+        results_label = tk.Label(
+            frame,
+            text=f"Previous results:\n{self.load_results()}",
+            font=("Arial", 10),
+            bg="#E6E6FA",
+            justify="left"
+        )
         results_label.pack(pady=10)
 
-        tk.Label(frame, text="Choose Player 2:", font=("Arial", 14), bg="#E6E6FA").pack()
+        tk.Label(
+            frame,
+            text="Choose Player 2:",
+            font=("Arial", 14),
+            bg="#E6E6FA"
+        ).pack()
         self.player2_type = tk.StringVar(value="human")
         tk.OptionMenu(frame, self.player2_type, "human", "AI").pack(pady=10)
 
-        tk.Label(frame, text="Choose Player 2 symbol:", font=("Arial", 14), bg="#E6E6FA").pack()
+        tk.Label(
+            frame,
+            text="Choose Player 2 symbol:",
+            font=("Arial", 14),
+            bg="#E6E6FA"
+        ).pack()
         self.player2_symbol = tk.StringVar(value="O")
         tk.OptionMenu(frame, self.player2_symbol, "X", "O").pack(pady=10)
 
-        self.start_button = tk.Button(frame, text="Start Game", font=("Arial", 14), command=self.start_game)
+        self.start_button = tk.Button(
+            frame,
+            text="Start Game",
+            font=("Arial", 14),
+            command=self.start_game
+        )
         self.start_button.pack(pady=20)
 
     def start_game(self):
@@ -210,7 +243,13 @@ class GameGUI:
         player1_symbol = "O" if player2_symbol == "X" else "X"
 
         players.append(PlayerFactory.create_player("human", player1_symbol))
-        players.append(PlayerFactory.create_player(self.player2_type.get(), player2_symbol, player1_symbol))
+        players.append(
+            PlayerFactory.create_player(
+                self.player2_type.get(),
+                player2_symbol,
+                player1_symbol
+            )
+        )
 
         self.board = Board()
 
@@ -249,7 +288,14 @@ class GameGUI:
                     bd=3,
                     command=lambda r=r, c=c: self.game.make_move(r, c)
                 )
-                button.grid(row=r, column=c, padx=15, pady=15, ipadx=20, ipady=20)
+                button.grid(
+                    row=r,
+                    column=c,
+                    padx=15,
+                    pady=15,
+                    ipadx=20,
+                    ipady=20
+                )
                 row.append(button)
             self.buttons.append(row)
 
@@ -267,14 +313,20 @@ class GameGUI:
 
     def show_winner(self, winner):
         self.save_result(winner)
-        if messagebox.askyesno("Winner", f"Player {winner} wins!\nDo you want to play again?"):
+        if messagebox.askyesno(
+            "Winner",
+            f"Player {winner} wins!\nDo you want to play again?"
+        ):
             self.setup_screen()
         else:
             self.window.quit()
 
     def show_draw(self):
         self.save_result(None)
-        if messagebox.askyesno("Draw", "The game ended in a draw!\nDo you want to play again?"):
+        if messagebox.askyesno(
+            "Draw",
+            "The game ended in a draw!\nDo you want to play again?"
+        ):
             self.setup_screen()
         else:
             self.window.quit()
