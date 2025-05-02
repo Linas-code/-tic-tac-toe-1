@@ -206,10 +206,10 @@ OK
 
 ## ✅ Rezultatai (Results)
 
-- ✅ Įgyvendinti visi keturi OOP principai aiškiai ir teisingai
+- ✅ Įgyvendinti visi keturi OOP principai
 - ✅ Pritaikytas „Factory Method“ dizaino šablonas
 - ✅ Failų įrašymas/skaitymas veikia sklandžiai
-- ✅ Testai padengia pagrindines funkcijas
+- ✅ Testai patikrina pagrindines funkcijas
 - ✅ Vartotojo sąsaja funkcionali ir intuityvi
 - ⚠️ AI logika pagrįsta paprasta strategija – galima patobulinti naudojant Minimax algoritmą
 
