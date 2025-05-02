@@ -183,10 +183,11 @@ class GameGUI:
     def load_results(self):
         try:
             with open("results.txt", "r", encoding="utf-8") as file:
-                content = file.read().strip()
-                if not content:
+                lines = file.readlines()
+                if not lines:
                     return "No previous results."
-            return content
+            last_5 = lines[-5:]
+            return "".join(last_5).strip()
         except FileNotFoundError:
             return "No previous results."
 
