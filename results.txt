@@ -1,3 +1,16 @@
 Winner: X
+Winner: X
+Winner: O
+Winner: X
+Draw
+Draw
+Winner: X
+Winner: X
+Draw
+Winner: X
+Draw
+Winner: X
+Draw
+Draw
 Draw
 Winner: X
