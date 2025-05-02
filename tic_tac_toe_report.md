@@ -134,15 +134,16 @@ def save_result(self, winner):
         else:
             file.write("Draw\n")
 
-def load_results(self):
-    try:
-        with open("results.txt", "r", encoding="utf-8") as file:
-            content = file.read().strip()
-            if not content:
-                return "No previous results."
-        return content
-    except FileNotFoundError:
-        return "No previous results."
+    def load_results(self):
+        try:
+            with open("results.txt", "r", encoding="utf-8") as file:
+                lines = file.readlines()
+                if not lines:
+                    return "No previous results."
+            last_5 = lines[-5:]
+            return "".join(last_5).strip()
+        except FileNotFoundError:
+            return "No previous results."
 ```
 
 ---
@@ -172,6 +173,7 @@ def test_create_human_player(self):
 def test_starting_player_is_x(self):
     players = [HumanPlayer('X'), HardAIPlayer('O', 'X')]
     game = Game(players, self.board, self.gui)
+    self.assertIsInstance(game, Game)
     starting_index = 0 if players[0].symbol == 'X' else 1
     self.assertEqual(starting_index, 0)
 ```
@@ -196,7 +198,7 @@ python -m unittest test_game.py
 ```
 ..................
 ----------------------------------------------------------------------
-Ran 18 tests in 0.226s
+Ran 19 tests in 0.267s
 
 OK
 ```
