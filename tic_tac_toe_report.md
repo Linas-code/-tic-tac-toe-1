@@ -101,9 +101,10 @@ class PlayerFactory:
 ```
 
 **Kodėl šis šablonas tinkamas?**
-- Lengva išplėsti: galima pridėti kitų žaidėjų rūšių (pvz. lengvesnį AI).
+- Lengva išplėsti: galima nesunkiai pridėti naujų žaidėjų tipų, pvz. `EasyAIPlayer`, neredaguojant kitų programos dalių.
+- Atskiria atsakomybę: GUI ar žaidimas neturi žinoti, kaip sukurti žaidėją – visa logika yra vienoje vietoje (`PlayerFactory`).
+- Pagerina palaikomumą: jei keisis konstruktoriai ar logika, užteks koreguoti tik `create_player()` metodą.
 - Vartotojo pasirinkimai GUI perduodami šablonui, kuris grąžina tinkamą objektą.
-
 ---
 
 ### 🔧 Kompozicija ir/ar agregacija
