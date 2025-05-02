@@ -1,6 +1,13 @@
 import unittest
 from unittest.mock import mock_open, patch
-from Tic_Tac_Toe import Board, PlayerFactory, HumanPlayer, HardAIPlayer, GameGUI, Game
+from Tic_Tac_Toe import (
+    Board,
+    PlayerFactory,
+    HumanPlayer,
+    HardAIPlayer,
+    GameGUI,
+    Game
+)
 
 
 class TestBoard(unittest.TestCase):
@@ -97,12 +104,14 @@ class TestGameStart(unittest.TestCase):
     def test_starting_player_is_x(self):
         players = [HumanPlayer('X'), HardAIPlayer('O', 'X')]
         game = Game(players, self.board, self.gui)
+        self.assertIsInstance(game, Game)
         starting_index = 0 if players[0].symbol == 'X' else 1
         self.assertEqual(starting_index, 0)
 
     def test_ai_starts_when_ai_has_x(self):
         players = [HardAIPlayer('X', 'O'), HumanPlayer('O')]
         game = Game(players, self.board, self.gui)
+        self.assertIsInstance(game, Game)
         starting_index = 0 if players[0].symbol == 'X' else 1
         self.assertEqual(starting_index, 0)
 
@@ -122,6 +131,18 @@ class TestLoadResults(unittest.TestCase):
     def test_load_results_file_not_found(self, _mock_file):
         result = self.gui.load_results()
         self.assertEqual(result, "No previous results.")
+
+    @patch(
+        "builtins.open",
+        new_callable=mock_open,
+        read_data=(
+            "Winner: X\nWinner: O\nDraw\nWinner: X\nWinner: O\nWinner: X\n"
+        )
+    )
+    def test_load_results_returns_last_5(self, _mock_file):
+        result = self.gui.load_results()
+        expected = "Winner: O\nDraw\nWinner: X\nWinner: O\nWinner: X"
+        self.assertEqual(result, expected)
 
 
 if __name__ == '__main__':
